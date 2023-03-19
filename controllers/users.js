@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const Users = require("../models/users");
 const { NOT_FOUND, CAST_ERROR } = require("../base");
 
