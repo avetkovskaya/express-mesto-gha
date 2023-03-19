@@ -1,1 +1,0 @@
-const NOT_FOUND = "NotFound";
