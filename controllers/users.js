@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const mongoose = require('mongoose');
 const Users = require('../models/users');
 
@@ -5,6 +6,12 @@ const NOT_FOUND = 'NotFound';
 const CAST_ERROR = 'CastError';
 
 module.exports = { NOT_FOUND, CAST_ERROR };
+=======
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const Users = require("../models/users");
+const { NOT_FOUND, CAST_ERROR } = require("../base");
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
 
 module.exports.getUsers = (req, res) => {
   Users.find({})
@@ -25,13 +32,21 @@ module.exports.getUser = (req, res) => {
         return res
           .status(400)
           .send({
+<<<<<<< HEAD
             message: 'Переданы некорректные данные при поиске пользователя',
+=======
+            message: "Переданы некорректные данные при поиске пользователя",
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
           });
       }
       if (err.message === NOT_FOUND) {
         return res
           .status(404)
+<<<<<<< HEAD
           .send({ message: 'Запрашиваемый пользователь не найден' });
+=======
+          .send({ message: "Запрашиваемый пользователь не найден" });
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
       }
       return res.status(500).send({ message: err.message });
     });
@@ -47,7 +62,11 @@ module.exports.createUser = (req, res) => {
         return res
           .status(400)
           .send({
+<<<<<<< HEAD
             message: 'Переданы некорректные данные при создании пользователя',
+=======
+            message: "Переданы некорректные данные при создании пользователя",
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
           });
       }
       return res.status(500).send({ message: err.message });
@@ -68,13 +87,21 @@ module.exports.updateUser = (req, res) => {
         return res
           .status(400)
           .send({
+<<<<<<< HEAD
             message: 'Переданы некорректные данные при обновлении профиля',
+=======
+            message: "Переданы некорректные данные при обновлении профиля",
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
           });
       }
       if (err.message === NOT_FOUND) {
         return res
           .status(404)
+<<<<<<< HEAD
           .send({ message: 'Пользователь с указанным _id не найден' });
+=======
+          .send({ message: "Пользователь с указанным _id не найден" });
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
       }
       return res.status(500).send({ message: err.message });
     });
@@ -94,13 +121,21 @@ module.exports.updateAvatar = (req, res) => {
         return res
           .status(400)
           .send({
+<<<<<<< HEAD
             message: ' Переданы некорректные данные при обновлении аватара',
+=======
+            message: " Переданы некорректные данные при обновлении аватара",
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
           });
       }
       if (err.message === NOT_FOUND) {
         return res
           .status(404)
+<<<<<<< HEAD
           .send({ message: 'Пользователь с указанным _id не найден' });
+=======
+          .send({ message: "Пользователь с указанным _id не найден" });
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
       }
       return res.status(500).send({ message: err.message });
     });

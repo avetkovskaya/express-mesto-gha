@@ -1,6 +1,7 @@
 {
   "name": "express-mesto-gha",
   "version": "1.0.0",
+<<<<<<< HEAD
   "description": "",
   "main": "app.js",
   "scripts": {
@@ -9,10 +10,22 @@
     "lint": "npx eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+=======
+  "description": "[![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml) [![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml) # Проект Mesto фронтенд + бэкенд",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "lint": "npx eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
   "repository": {
     "type": "git",
     "url": "git+https://github.com/avetkovskaya/express-mesto-gha.git"
   },
+<<<<<<< HEAD
   "keywords": [],
   "author": "Anastasia Vetkovskaia",
   "license": "ISC",
@@ -25,6 +38,12 @@
   "bugs": {
     "url": "https://github.com/avetkovskaya/express-mesto-gha.git/issues"
 
+=======
+  "author": "Anastasia Vetkovskaia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avetkovskaya/express-mesto-gha.git/issues"
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
   },
   "homepage": "https://github.com/avetkovskaya/express-mesto-gha#readme",
   "devDependencies": {
@@ -32,5 +51,13 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "nodemon": "^2.0.21"
+<<<<<<< HEAD
+=======
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "mongoose": "^6.10.3"
+>>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
   }
 }
