@@ -1,31 +1,24 @@
-<<<<<<< HEAD
-const router = require('express').Router();
-=======
-const router = require("express").Router();
+const mongoose = require('mongoose');
 
->>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
-const {
-  getUsers,
-  getUser,
-  createUser,
-  updateUser,
-  updateAvatar,
-<<<<<<< HEAD
-} = require('../controllers/users');
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      minlength: 2,
+      maxlength: 30,
+      default: 'Жак-Ив Кусто',
+    },
+    about: {
+      type: String,
+      minlength: 2,
+      maxlength: 30,
+      default: 'Исследователь',
+    },
+    avatar: {
+      type: String,
+    },
+  },
+  { versionKey: false },
+);
 
-router.get('/', getUsers);
-router.get('/:userId', getUser);
-router.post('/', createUser);
-router.patch('/me', updateUser);
-router.patch('/me/avatar', updateAvatar);
-=======
-} = require("../controllers/users");
-
-router.get("/", getUsers);
-router.get("/:userId", getUser);
-router.post("/", createUser);
-router.patch("/me", updateUser);
-router.patch("/me/avatar", updateAvatar);
->>>>>>> 825f75d9f8fd908763c0881e8d8a63ef7989e24b
-
-module.exports = router;
+module.exports = mongoose.model('user', userSchema);
