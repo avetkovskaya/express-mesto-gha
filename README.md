@@ -1,10 +1,9 @@
-[![Tests](../../actions/workflows/tests-13-sprint.yml/badge.svg)](../../actions/workflows/tests-13-sprint.yml) [![Tests](../../actions/workflows/tests-14-sprint.yml/badge.svg)](../../actions/workflows/tests-14-sprint.yml)
+[![Tests](https://github.com/avetkovskaya/express-mesto-gha/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/avetkovskaya/express-mesto-gha/actions/workflows/tests-13-sprint.yml) [![Tests](https://github.com/avetkovskaya/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/avetkovskaya/express-mesto-gha/actions/workflows/tests-14-sprint.yml)
 # Проект Mesto фронтенд + бэкенд
 
 
 ## Директории
 
-https://github.com/avetkovskaya/express-mesto-gha.git
 
 `/routes` — папка с файлами роутера  
 `/controllers` — папка с файлами контроллеров пользователя и карточки   
