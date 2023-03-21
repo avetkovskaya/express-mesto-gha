@@ -1,6 +1,7 @@
-const { default: mongoose } = require("mongoose");
-const Cards = require("../models/cards");
-const { NOT_FOUND, CAST_ERROR } = require("../base");
+const { default: mongoose } = require('mongoose');
+const { NOT_FOUND, CAST_ERROR } = require('./users');
+
+const Cards = require('../models/cards');
 
 module.exports.getCard = (req, res) => {
   Cards.find({})
@@ -20,7 +21,7 @@ module.exports.createCard = (req, res) => {
         return res
           .status(400)
           .send({
-            message: "Переданы некорректные данные при создании карточки",
+            message: 'Переданы некорректные данные при создании карточки',
           });
       }
       return res.status(500).send({ message: err.message });
@@ -37,12 +38,12 @@ module.exports.deleteCard = (req, res) => {
       if (err.name === CAST_ERROR) {
         return res
           .status(400)
-          .send({ message: "Переданы некорректные данные карточки" });
+          .send({ message: 'Переданы некорректные данные карточки' });
       }
       if (err.message === NOT_FOUND) {
         return res
           .status(404)
-          .send({ message: "Карточка с указанным _id не найдена" });
+          .send({ message: 'Карточка с указанным _id не найдена' });
       }
       return res.status(500).send({ message: err.message });
     });
@@ -52,7 +53,7 @@ module.exports.likeCard = (req, res) => {
   Cards.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
-    { new: true }
+    { new: true },
   )
     .orFail(new Error(NOT_FOUND))
     .then((card) => {
@@ -63,13 +64,13 @@ module.exports.likeCard = (req, res) => {
         return res
           .status(400)
           .send({
-            message: "Переданы некорректные данные для постановки лайка",
+            message: 'Переданы некорректные данные для постановки лайка',
           });
       }
       if (err.message === NOT_FOUND) {
         return res
           .status(404)
-          .send({ message: "Передан несуществующий _id карточки" });
+          .send({ message: 'Передан несуществующий _id карточки' });
       }
       return res.status(500).send({ message: err.message });
     });
@@ -79,7 +80,7 @@ module.exports.dislikeCard = (req, res) => {
   Cards.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },
-    { new: true }
+    { new: true },
   )
     .orFail(new Error(NOT_FOUND))
     .then((card) => {
@@ -89,12 +90,12 @@ module.exports.dislikeCard = (req, res) => {
       if (err.name === CAST_ERROR) {
         return res
           .status(400)
-          .send({ message: "Переданы некорректные данные для снятии лайка" });
+          .send({ message: 'Переданы некорректные данные для снятии лайка' });
       }
       if (err.message === NOT_FOUND) {
         return res
           .status(404)
-          .send({ message: "Передан несуществующий _id карточки" });
+          .send({ message: 'Передан несуществующий _id карточки' });
       }
       return res.status(500).send({ message: err.message });
     });

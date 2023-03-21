@@ -1,7 +1,10 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const Users = require("../models/users");
-const { NOT_FOUND, CAST_ERROR } = require("../base");
+const mongoose = require('mongoose');
+const Users = require('../models/users');
+
+const NOT_FOUND = 'NotFound';
+const CAST_ERROR = 'CastError';
+
+module.exports = { NOT_FOUND, CAST_ERROR };
 
 module.exports.getUsers = (req, res) => {
   Users.find({})
@@ -22,13 +25,13 @@ module.exports.getUser = (req, res) => {
         return res
           .status(400)
           .send({
-            message: "Переданы некорректные данные при поиске пользователя",
+            message: 'Переданы некорректные данные при поиске пользователя',
           });
       }
       if (err.message === NOT_FOUND) {
         return res
           .status(404)
-          .send({ message: "Запрашиваемый пользователь не найден" });
+          .send({ message: 'Запрашиваемый пользователь не найден' });
       }
       return res.status(500).send({ message: err.message });
     });
@@ -44,7 +47,7 @@ module.exports.createUser = (req, res) => {
         return res
           .status(400)
           .send({
-            message: "Переданы некорректные данные при создании пользователя",
+            message: 'Переданы некорректные данные при создании пользователя',
           });
       }
       return res.status(500).send({ message: err.message });
@@ -65,13 +68,13 @@ module.exports.updateUser = (req, res) => {
         return res
           .status(400)
           .send({
-            message: "Переданы некорректные данные при обновлении профиля",
+            message: 'Переданы некорректные данные при обновлении профиля',
           });
       }
       if (err.message === NOT_FOUND) {
         return res
           .status(404)
-          .send({ message: "Пользователь с указанным _id не найден" });
+          .send({ message: 'Пользователь с указанным _id не найден' });
       }
       return res.status(500).send({ message: err.message });
     });
@@ -91,13 +94,13 @@ module.exports.updateAvatar = (req, res) => {
         return res
           .status(400)
           .send({
-            message: " Переданы некорректные данные при обновлении аватара",
+            message: ' Переданы некорректные данные при обновлении аватара',
           });
       }
       if (err.message === NOT_FOUND) {
         return res
           .status(404)
-          .send({ message: "Пользователь с указанным _id не найден" });
+          .send({ message: 'Пользователь с указанным _id не найден' });
       }
       return res.status(500).send({ message: err.message });
     });
