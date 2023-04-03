@@ -1,5 +1,5 @@
 const jsonwebtoken = require("jsonwebtoken");
-const { JWT_SECRET } = require("../controllers");
+const { JWT_SECRET } = require('../base');
 
 module.exports = (req, res, next) => {
   const { jwt } = req.cookies;
