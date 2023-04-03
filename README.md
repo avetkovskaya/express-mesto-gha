@@ -10,8 +10,8 @@
 **Место Russia & бэкенд.**
 
 ## **Cтек разработки :**
-*`mongoDB`
-*`express`
+_`mongoDB`
+_`express`
 *`JoiValidator`
 *`REGEX`
 *`Eslint`
