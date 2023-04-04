@@ -12,6 +12,7 @@ router.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
+
 router.post('/signin', validAuthName, login);
 router.post('/signup', validAuthName, createUser);
 router.use(auth);

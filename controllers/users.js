@@ -7,13 +7,10 @@ const NotFoundError = require('../errors/NotFoundError');
 const BadReqError = require('../errors/BadReqError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports.createUser = (req, res, next) => {
   const {
-    email,
-    password,
-    name,
-    about,
-    avatar,
+    email, password, name, about, avatar,
   } = req.body;
 
   bcrypt
@@ -43,8 +40,10 @@ module.exports.createUser = (req, res, next) => {
       return next(err);
     });
 };
+
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
+
   return Users.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
@@ -62,16 +61,19 @@ module.exports.login = (req, res, next) => {
     })
     .catch(next);
 };
+
 module.exports.logout = (req, res) => {
   res
     .clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
     .send({ message: 'Пользователь успешно вышел.' });
 };
+
 module.exports.getUsers = (req, res, next) => {
   Users.find({})
     .then((users) => res.send(users))
     .catch(next);
 };
+
 module.exports.getUser = (req, res, next) => {
   Users.findById(req.params.userId || req.user._id)
     .orFail(new NotFoundError('Запрашиваемый пользователь не найден.'))
@@ -87,6 +89,7 @@ module.exports.getUser = (req, res, next) => {
       return next(err);
     });
 };
+
 module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
   Users.findByIdAndUpdate(

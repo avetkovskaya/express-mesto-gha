@@ -1,9 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const { isEmail, isURL } = require('validator');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const UnauthorizedError = require('../errors/UnauthorizedError');
-const { NOT_FOUND } = require('../base');
 
 const userSchema = new mongoose.Schema(
   {
@@ -42,7 +40,6 @@ const userSchema = new mongoose.Schema(
 userSchema.statics.findUserByCredentials = function auth(email, password) {
   return this.findOne({ email })
     .select('+password')
-    .orFail(new Error(NOT_FOUND))
     .then((user) => {
       if (!user) {
         return Promise.reject(new UnauthorizedError('Неправильные почта или пароль'));
