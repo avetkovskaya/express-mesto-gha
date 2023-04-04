@@ -32,7 +32,7 @@ const validDataCard = celebrate({
     link: Joi.string().required().regex(REGEX_URL),
   }),
 });
-export default {
+module.exports = {
   validId,
   validAuthName,
   validUserInfo,
