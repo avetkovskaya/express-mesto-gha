@@ -1,11 +1,12 @@
-const { celebrate, Joi } = require('celebrate');
-const { REGEX_URL } = require('../base/index');
-const validId = (typeId) =>
-  celebrate({
-    params: Joi.object().keys({
-      [typeId]: Joi.string().hex().length(24),
-    }),
-  });
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { celebrate, Joi } from 'celebrate';
+import { REGEX_URL } from '../base/index';
+
+const validId = (typeId) => celebrate({
+  params: Joi.object().keys({
+    [typeId]: Joi.string().hex().length(24),
+  }),
+});
 const validAuthName = celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
@@ -32,7 +33,7 @@ const validDataCard = celebrate({
     link: Joi.string().required().regex(REGEX_URL),
   }),
 });
-module.exports = {
+export default {
   validId,
   validAuthName,
   validUserInfo,

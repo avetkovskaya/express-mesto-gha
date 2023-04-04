@@ -1,4 +1,5 @@
-const { isEmail , isURL } = require('validator');
+/* eslint-disable import/no-extraneous-dependencies */
+const { isEmail, isURL } = require('validator');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const UnauthorizedError = require('../errors/UnauthorizedError');
@@ -22,7 +23,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default:
         'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
-        validate: [isURL, 'Некорректный URL адрес.'],
+      validate: [isURL, 'Некорректный URL адрес.'],
     },
     email: {
       type: String,
@@ -36,7 +37,7 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
   },
-  { versionKey: false }
+  { versionKey: false },
 );
 userSchema.statics.findUserByCredentials = function auth(email, password) {
   return this.findOne({ email })

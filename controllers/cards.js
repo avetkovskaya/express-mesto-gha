@@ -4,6 +4,7 @@ const { CAST_ERROR, VALIDATION_ERROR } = require('../base');
 const BadReqError = require('../errors/BadReqError');
 const ForbiddenError = require('../errors/ForbiddenError');
 const NotFoundError = require('../errors/NotFoundError');
+
 module.exports.getCard = (req, res, next) => {
   Cards.find({})
     .then((card) => res.send(card))
@@ -21,8 +22,8 @@ module.exports.createCard = (req, res, next) => {
           if (err.message === VALIDATION_ERROR) {
             return next(
               new BadReqError(
-                'Переданы некорректные данные при создании карточки.'
-              )
+                'Переданы некорректные данные при создании карточки.',
+              ),
             );
           }
           return next(err);
@@ -36,7 +37,7 @@ module.exports.deleteCard = (req, res, next) => {
     .then((card) => {
       if (!card.owner.equals(req.user._id)) {
         return next(
-          new ForbiddenError('У вас отсутствуют права для удаления карточки.')
+          new ForbiddenError('У вас отсутствуют права для удаления карточки.'),
         );
       }
       return Cards.findByIdAndDelete(card._id.toString()).then(() => {
@@ -57,7 +58,7 @@ module.exports.likeCard = (req, res, next) => {
       Cards.findByIdAndUpdate(
         req.params.cardId,
         { $addToSet: { likes: { name, _id } } },
-        { new: true }
+        { new: true },
       )
         .orFail(new NotFoundError('Передан несуществующий _id карточки.'))
         .then((card) => {
@@ -67,8 +68,8 @@ module.exports.likeCard = (req, res, next) => {
           if (err.name === CAST_ERROR) {
             return next(
               new BadReqError(
-                'Переданы некорректные данные для постановки лайка.'
-              )
+                'Переданы некорректные данные для постановки лайка.',
+              ),
             );
           }
           return next(err);
@@ -80,7 +81,7 @@ module.exports.dislikeCard = (req, res, next) => {
   Cards.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },
-    { new: true }
+    { new: true },
   )
     .orFail(new NotFoundError('Передан несуществующий _id карточки.'))
     .then((card) => {
@@ -89,7 +90,7 @@ module.exports.dislikeCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === CAST_ERROR) {
         return next(
-          new BadReqError('Переданы некорректные данные для снятии лайка.')
+          new BadReqError('Переданы некорректные данные для снятии лайка.'),
         );
       }
       return next(err);
