@@ -1,5 +1,5 @@
-const { celebrate, Joi } = require("celebrate");
-const { REGEX_URL } = require("../base/index");
+const { celebrate, Joi } = require('celebrate');
+const { REGEX_URL } = require('../base/index');
 const validId = (typeId) =>
   celebrate({
     params: Joi.object().keys({
