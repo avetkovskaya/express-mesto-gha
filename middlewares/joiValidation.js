@@ -1,6 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { celebrate, Joi } from 'celebrate';
-import { REGEX_URL } from '../base/index';
+const { celebrate, Joi } = require('celebrate');
+const { REGEX_URL } = require('../base/index');
 
 const validId = (typeId) => celebrate({
   params: Joi.object().keys({
