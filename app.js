@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const { errors } = require('celebrate');
 const authRequier = require('./middlewares/auth-required');
@@ -12,6 +12,10 @@ const { MONGODB_URL, PORT } = require('./index');
 
 const app = express();
 
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 mongoose.set('strictQuery', true);
 
 mongoose.connect(MONGODB_URL, {
@@ -19,9 +23,7 @@ mongoose.connect(MONGODB_URL, {
   useUnifiedTopology: true,
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(requestLogger);
 
 app.use(permitCors);
 app.use(require('./routes/auth'));
@@ -32,8 +34,6 @@ app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 
 app.use(errorLogger);
-app.use(requestLogger);
 app.use(errors());
 app.use(errorProcessing);
-app.use(express.json());
 app.listen(PORT);
