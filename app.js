@@ -1,31 +1,39 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const { errors } = require('celebrate');
-
+const bodyParser = require('body-parser');
 require('dotenv').config();
-const routes = require('./routes');
-
-const centralizedErrorHandler = require('./middlewares/centralizedErrorHandler');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-
-const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
+const { errors } = require('celebrate');
+const authRequier = require('./middlewares/auth-required');
+const { errorProcessing } = require('./middlewares/errors-processing');
+const { errorLogger, requestLogger } = require('./middlewares/winston-logger');
+const permitCors = require('./middlewares/permitCors');
+const { MONGODB_URL, PORT } = require('./index');
 
 const app = express();
-app.use(express.json());
+
+mongoose.set('strictQuery', true);
+
+mongoose.connect(MONGODB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-mongoose.connect(MONGO_URL, {
-  useNewUrlParser: true,
-});
-app.use(requestLogger);
 
-app.use(routes);
+app.use(permitCors);
+app.use(require('./routes/auth'));
+
+app.use(authRequier);
+
+app.use('/users', require('./routes/users'));
+app.use('/cards', require('./routes/cards'));
 
 app.use(errorLogger);
-
+app.use(requestLogger);
 app.use(errors());
-app.use(centralizedErrorHandler);
-
+app.use(errorProcessing);
+app.use(express.json());
 app.listen(PORT);

@@ -1,0 +1,73 @@
+const { celebrate, Joi } = require('celebrate');
+const validator = require('validator');
+
+const validateLink = (value) => {
+  if (!validator.isURL(value, { require_protocol: true })) {
+    throw new Error('Неверный URL');
+  }
+  return value;
+};
+
+const validateString = Joi.string().min(2).max(30);
+const validateEmail = Joi.string().email().required();
+const validatePassword = Joi.string().min(8).required();
+
+const validateBody = (keys) => Joi.object().keys(keys);
+
+const validateParams = (keys) => Joi.object().keys(keys);
+
+const validateUser = celebrate({
+  body: validateBody({
+    name: validateString.required(),
+    about: validateString.required(),
+  }),
+});
+
+const validateCard = celebrate({
+  body: validateBody({
+    name: validateString.required(),
+    link: Joi.string().custom(validateLink).required(),
+  }),
+});
+
+const validateUserId = validateParams({
+  userId: Joi.string().hex().length(24).required(),
+});
+
+const validateCardId = validateParams({
+  cardId: Joi.string().hex().length(24).required()
+    .alphanum(),
+});
+
+const validateAvatar = celebrate({
+  body: validateBody({
+    avatar: Joi.string().custom(validateLink).required(),
+  }),
+});
+
+const validateSignIn = celebrate({
+  body: validateBody({
+    email: validateEmail,
+    password: validatePassword,
+  }),
+});
+
+const validateSignUp = celebrate({
+  body: validateBody({
+    name: validateString,
+    about: validateString,
+    avatar: Joi.string().custom(validateLink),
+    email: validateEmail,
+    password: validatePassword,
+  }),
+});
+
+module.exports = {
+  validateUser,
+  validateCard,
+  validateCardId,
+  validateUserId,
+  validateAvatar,
+  validateSignIn,
+  validateSignUp,
+};
