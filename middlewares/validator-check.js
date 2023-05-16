@@ -1,5 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 const validator = require('validator');
+const { ValidationURL } = require('../index');
 
 const validateLink = (value) => {
   if (!validator.isURL(value, { require_protocol: true })) {
@@ -41,7 +42,7 @@ const validateCardId = validateParams({
 
 const validateAvatar = celebrate({
   body: validateBody({
-    avatar: Joi.string().custom(validateLink).required(),
+    avatar: Joi.string().custom(validateLink).required().regex(ValidationURL),
   }),
 });
 
@@ -56,7 +57,7 @@ const validateSignUp = celebrate({
   body: validateBody({
     name: validateString,
     about: validateString,
-    avatar: Joi.string().custom(validateLink),
+    avatar: Joi.string().custom(validateLink).regex(ValidationURL),
     email: validateEmail,
     password: validatePassword,
   }),

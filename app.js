@@ -7,7 +7,7 @@ const { errors } = require('celebrate');
 const authRequier = require('./middlewares/auth-required');
 const { errorProcessing } = require('./middlewares/errors-processing');
 const { errorLogger, requestLogger } = require('./middlewares/winston-logger');
-const permitCors = require('./middlewares/permitCors');
+const permitCors = require('./middlewares/permit-cors');
 const { MONGODB_URL, PORT } = require('./index');
 
 const app = express();
