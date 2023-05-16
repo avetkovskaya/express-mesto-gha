@@ -14,18 +14,13 @@ const {
   JWT_SECRET,
 } = process.env;
 
-const ValidationURL = /^(http[s] ?://)?[a-zA-Z0-9-._~:/?#[]@!$&'()*+,;=]+#?$/;
-if(!ValidationURL.test(data.avatar)) {
-  console.log("Error avatar url");
-  } else {
-  console.log("Valid avatar url");
-  };
+const ValidationURL = /^(http|https):\/\/([-a-zA-Z0-9-]+\.)+[a-zA-Z]{1,256}(\/[a-zA-Z0-9-._~:/?&#[\]@$!'()+*,;=]*#?)?$/;
 
-  module.exports = {
-    permitCors,
-    NODE_ENV,
-    PORT,
-    JWT_SECRET: NODE_ENV === 'production' ? JWT_SECRET : 'JWT_SECRET',
-    MONGODB_URL,
-    ValidationURL
-  };
+module.exports = {
+  permitCors,
+  NODE_ENV,
+  PORT,
+  JWT_SECRET: NODE_ENV === 'production' ? JWT_SECRET : 'JWT_SECRET',
+  MONGODB_URL,
+  ValidationURL,
+};
