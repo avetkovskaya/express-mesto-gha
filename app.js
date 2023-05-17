@@ -8,6 +8,7 @@ const authRequier = require('./middlewares/auth-required');
 const { errorProcessing } = require('./middlewares/errors-processing');
 const { errorLogger, requestLogger } = require('./middlewares/winston-logger');
 const permitCors = require('./middlewares/permit-cors');
+const NotFound = require('./errors/notfound-error');
 const { MONGODB_URL, PORT } = require('./index');
 
 const app = express();
@@ -33,6 +34,9 @@ app.use(authRequier);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 
+app.use((req, res, next) => {
+  next(new NotFound('NOT_FOUND_WAY'));
+});
 app.use(errorLogger);
 app.use(errors());
 app.use(errorProcessing);

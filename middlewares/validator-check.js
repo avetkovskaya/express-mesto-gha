@@ -11,8 +11,7 @@ const validateLink = (value) => {
 
 const validateString = Joi.string().min(2).max(30);
 const validateEmail = Joi.string().email().required();
-const validatePassword = Joi.string().min(8).required();
-
+const validatePassword = Joi.string().min().required();
 const validateBody = (keys) => Joi.object().keys(keys);
 
 const validateParams = (keys) => Joi.object().keys(keys);
