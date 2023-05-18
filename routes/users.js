@@ -7,16 +7,10 @@ const {
   logout,
 } = require('../controllers/users');
 
-const {
-  validateUser,
-  validateUserId,
-  validateAvatar,
-} = require('../middlewares/validator-check');
-
 router.get('/', getUsers);
-router.get('/:userId', validateUserId, getUser);
-router.patch('/me', validateUser, updateUser);
-router.patch('/me/avatar', validateAvatar, updateAvatar);
+router.get('/:userId', getUser);
+router.patch('/me', updateUser);
+router.patch('/me/avatar', updateAvatar);
 router.delete('/signout', logout);
 
 module.exports = router;
