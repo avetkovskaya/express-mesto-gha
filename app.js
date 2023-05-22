@@ -30,13 +30,13 @@ app.use(permitCors);
 app.use(require('./routes/auth'));
 
 app.use(authRequier);
-
-//app.use('/users', require('./routes/users'));
-//app.use('/cards', require('./routes/cards'));
+app.use('/users', require('./routes/users'));
+app.use('/cards', require('./routes/cards'));
 
 app.use((req, res, next) => {
   next(new NotFound('NOT_FOUND_WAY'));
 });
+
 app.use(errorLogger);
 app.use(errors());
 app.use(errorProcessing);
