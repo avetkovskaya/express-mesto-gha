@@ -5,12 +5,21 @@ const {
   updateUser,
   updateAvatar,
   logout,
+  createUser,
 } = require('../controllers/users');
 
+const {
+  //validateUser,
+  validateAvatar,
+  validateUserId,
+  validateSignIn,
+} = require('../middlewares/validator-check');
+
 router.get('/', getUsers);
-router.get('/:userId', getUser);
-router.patch('/me', updateUser);
-router.patch('/me/avatar', updateAvatar);
+router.get('/:userId', validateUserId, getUser);
+//router.post('/', validateUser, createUser);
+router.patch('/me', validateSignIn, updateUser);
+router.patch('/me/avatar', validateAvatar, updateAvatar);
 router.delete('/signout', logout);
 
 module.exports = router;
