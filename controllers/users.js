@@ -83,7 +83,7 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.getUsers = (req, res, next) => {
   Users.find({})
-    .then((allUsers) => res.send(allUsers))
+    .then((allUsers) => res.status(200).send(allUsers))
     .catch((err) => next(err));
 };
 
@@ -98,7 +98,7 @@ module.exports.createUser = (req, res, next) => {
       password: hash,
     }))
     .then((user) => Users.findById(user._id).select('-password'))
-    .then((user) => res.send(user))
+    .then((user) => res.status(201).send(user))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         return next(new BadReqError('Переданы некорректные данные при поиске пользователя'));

@@ -1,6 +1,6 @@
 const BadReqError = require('../errors/badreq-error');
-const Forbidden = require('../errors/forbidden-error');
 const NotFound = require('../errors/notfound-error');
+const Forbidden = require('../errors/forbidden-error');
 const Cards = require('../models/cards');
 
 const {
@@ -81,7 +81,7 @@ module.exports.deleteCard = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadReqError(INCORRECT_INFO));
+        next(new NotFound(INCORRECT_INFO));
       } else {
         next(err);
       }
