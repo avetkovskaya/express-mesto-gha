@@ -2,6 +2,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const Users = require('../models/users');
+const BadReqError = require('../errors/badreq-error');
+const KeyError = require('../errors/key-error');
+const NotFound = require('../errors/notfound-error');
 
 const NOT_FOUND = 'NotFound';
 const CAST_ERROR = 'CastError';
@@ -38,10 +41,7 @@ module.exports.getUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === CAST_ERROR) {
-        next({
-          status: 400,
-          message: 'Переданы некорректные данные при поиске пользователя',
-        });
+        next(new BadReqError('Переданы некорректные данные при поиске пользователя'));
       } else {
         next(err);
       }
@@ -72,15 +72,9 @@ module.exports.createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        next({
-          status: 400,
-          message: 'Переданы некорректные данные при создании пользователя',
-        });
+        next(new BadReqError('Переданы некорректные данные при создании пользователя'));
       } else if (err.code === 11000) {
-        next({
-          status: 409,
-          message: 'Пользователь с таким эмейл уже существует',
-        });
+        next(new KeyError('Пользователь с таким эмейл уже существует'));
       } else {
         next(err);
       }
@@ -107,16 +101,10 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        return next({
-          status: 400,
-          message: 'Переданы некорректные данные при создании пользователя',
-        });
+        return next(new BadReqError('Переданы некорректные данные при поиске пользователя'));
       }
       if (err.code === 11000) {
-        return next({
-          status: 409,
-          message: 'Пользователь с таким эмейл уже существует',
-        });
+        return next(new KeyError('Пользователь с таким эмейл уже существует'));
       }
       return next(err);
     });
@@ -133,16 +121,10 @@ module.exports.updateUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        return next({
-          status: 400,
-          message: 'Переданы некорректные данные при обновлении профиля',
-        });
+        return next(new BadReqError('Переданы некорректные данные при обновлении профиля'));
       }
       if (err.message === NOT_FOUND) {
-        return next({
-          status: 404,
-          message: 'Пользователь с указанным _id не найден',
-        });
+        return next(new NotFound('Пользователь с указанным _id не найден'));
       }
       return next(err);
     });
@@ -159,16 +141,10 @@ module.exports.updateAvatar = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        return next({
-          status: 400,
-          message: 'Переданы некорректные данные при обновлении аватара',
-        });
+        return next(new BadReqError('Переданы некорректные данные при поиске пользователя'));
       }
       if (err.message === NOT_FOUND) {
-        return next({
-          status: 404,
-          message: 'Пользователь с указанным _id не найден',
-        });
+        return next(new NotFound('Пользователь с указанным _id не найден'));
       }
       return next(err);
     });
