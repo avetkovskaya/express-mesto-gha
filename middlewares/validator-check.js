@@ -11,7 +11,7 @@ const validateLink = (value) => {
 
 const validateString = Joi.string().min(2).max(30);
 const validateEmail = Joi.string().email().required();
-const validatePassword = Joi.string().min(2).max(30).required();
+const validatePassword = Joi.string().required();
 const validateBody = (keys) => Joi.object().keys(keys);
 
 const validateUser = celebrate({
@@ -34,9 +34,9 @@ const validateUserId = (typeOfId) => celebrate({
   }),
 });
 
-const validateCardId = celebrate({
+const validateCardId = (typeOfId) => celebrate({
   params: Joi.object().keys({
-    cardId: Joi.object(),
+    [typeOfId]: Joi.string().hex().length(24),
   }),
 });
 
