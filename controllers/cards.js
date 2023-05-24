@@ -1,7 +1,6 @@
 const BadReqError = require('../errors/badreq-error');
 const NotFound = require('../errors/notfound-error');
 const Forbidden = require('../errors/forbidden-error');
-const Unauthorized = require('../errors/unauthorized-error');
 const Cards = require('../models/cards');
 
 const {
@@ -76,21 +75,8 @@ module.exports.deleteCard = (req, res, next) => {
       if (card.owner._id.toString() === req.user._id) {
         return card
           .remove()
-          .then(() => {
-            Cards.findById(req.params.cardId)
-              .then((deleteCard) => {
-                if (!deleteCard) {
-                  res.send({ message: 'Карточка удалена' });
-                } else {
-                  next(new Unauthorized('Не удалось удалить карточку'));
-                }
-              })
-              .catch((err) => {
-                next(err);
-              });
-          });
+          .then(() => res.send({ message: 'Карточка удалена' }));
       }
-
       return next(new Forbidden(NO_PERMISSION_DELETE));
     })
     .catch((err) => {
